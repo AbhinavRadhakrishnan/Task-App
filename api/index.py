@@ -26,7 +26,7 @@ class Task(TaskBase):
 
 tasks_db: List[Task] = []
 
-@app.post("/tasks", response_model=Task)
+@app.post("/api/tasks", response_model=Task)
 def create_task(task: TaskBase):
     new_task = Task(
         id=str(uuid.uuid4()),
@@ -38,11 +38,11 @@ def create_task(task: TaskBase):
     tasks_db.insert(0, new_task)
     return new_task
 
-@app.get("/tasks", response_model=List[Task])
+@app.get("/api/tasks", response_model=List[Task])
 def get_tasks():
     return tasks_db
 
-@app.put("/tasks/{task_id}", response_model=Task)
+@app.put("/api/tasks/{task_id}", response_model=Task)
 def update_task_status(task_id: str, completed: bool):
     for task in tasks_db:
         if task.id == task_id:
@@ -50,7 +50,7 @@ def update_task_status(task_id: str, completed: bool):
             return task
     raise HTTPException(status_code=404, detail="Task not found")
 
-@app.delete("/tasks/{task_id}")
+@app.delete("/api/tasks/{task_id}")
 def delete_task(task_id: str):
     global tasks_db
     tasks_db = [t for t in tasks_db if t.id != task_id]

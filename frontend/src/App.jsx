@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Plus, Trash2, Check, X, AlertCircle, Search } from 'lucide-react';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = '/api';
 
 function App() {
   const [tasks, setTasks] = useState([]);
